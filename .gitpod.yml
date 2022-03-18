@@ -1,0 +1,14 @@
+image: public.ecr.aws/k1t8c0v2/devflows/function/devserver:devserver-python
+ports:
+  - port: 8080
+    onOpen: open-preview
+  - port: 8000
+    onOpen: ignore
+tasks:
+  - init: pip install -r requirements.txt
+    command: export PYTHONPATH=/workspace/`ls /workspace` && cd /usr/src/devserver/ && python3 src/server.py
+  - command: cd /usr/src/devserver/ && npm start
+
+vscode:
+  extensions:
+    - ms-python.python
